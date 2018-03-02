@@ -1,0 +1,77 @@
+<body>
+    <div class="container">
+    <h1>
+        Animations
+    </h1>
+
+    <ng-template #modalBody>
+
+        <ng-template #modalButtons>
+            <div class="modal-buttons">
+                <button (click)="tabPanel.selectTab(stripeTab)">Stripe</button>
+                <button (click)="tabPanel.selectTab(paypalTab)">Paypal</button>
+            </div>
+        </ng-template>
+
+        <au-tab-panel #tabPanel>
+
+            <au-tab title="Stripe" #stripeTab>
+
+                <div class="payment-form">
+
+                    <label>Email:</label>
+                    <au-fa-input class="form-input" icon="envelope">
+                        <input type="email" placeholder="Email">
+                    </au-fa-input>
+
+                    <label>Name:</label>
+                    <input class="form-input" placeholder="Name">
+
+                    <label>Card Number:</label>
+                    <au-fa-input icon="cc-stripe" class="form-input">
+                        <input placeholder="Card Number" au-mask="9999 9999 9999 9999">
+                    </au-fa-input>
+
+                    <label>Card Date:</label>
+                    <input placeholder="Date" au-mask="19/9999" class="form-input">
+
+                    <label>CVC:</label>
+                    <input placeholder="CVC" au-mask="999" class="form-input">
+
+                    <label>Coupon Code:</label>
+                    <input placeholder="Coupon Code (optional)" class="form-input">
+
+                    <button class="modal-button">Trigger Stripe Payment</button>
+
+                </div>
+
+            </au-tab>
+
+            <au-tab title="Paypal" #paypalTab>
+
+                <div class="payment-form">
+                    <label>Coupon Code:</label>
+                    <input placeholder="Coupon Code (optional)" class="form-input">
+
+                    <button class="modal-button">Trigger Paypal Payment</button>
+                </div>
+
+            </au-tab>
+
+        </au-tab-panel>
+
+    </ng-template>
+
+
+    <au-modal [@fadeInOut] 
+            (@fadeInOut.start) ="onAnimationStart()"
+            (@fadeInOut.done) ="onAnimationEnd()"
+            *auModalOpenOnClick="paymentModal" 
+            [body]="modalBody">
+    </au-modal>
+
+    <button #paymentModal>Open Payment Modal</button>
+
+    </div>
+
+</body>
